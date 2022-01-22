@@ -1,0 +1,72 @@
+<mat-paginator [pageSizeOptions]="[20,10,5]"
+  showFirstLastButtons 
+  aria-label="Select page of periodic elements">
+</mat-paginator>
+<div>
+
+<mat-form-field appearance="fill">
+  <mat-label>Select Price to Order</mat-label>
+  <mat-select [(value)]="selected" (selectionChange)="onSelectPrice(selected)" >
+    <mat-option *ngFor="let s of selectOrderBy" [value]="s.value" >
+      {{s.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+     <mat-form-field>
+ <input   matInput (keyup)="applyFilter($event.target.value)" placeholder="Input Date">
+</mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  
+  <table *ngIf="dataSource" mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="OpenPrice">
+      <th mat-header-cell *matHeaderCellDef> Open Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.OpenPrice}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="MaxPrice">
+      <th mat-header-cell *matHeaderCellDef> Max Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.MaxPrice}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="MinPrice">
+      <th mat-header-cell *matHeaderCellDef> Min Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.MinPrice}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ClosurePrice">
+      <th mat-header-cell *matHeaderCellDef> Closure Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.ClousePrice}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="diffrent">
+      <th mat-header-cell *matHeaderCellDef> The Diffrent  </th>
+      <td mat-cell *matCellDef="let element"> {{element.Difference}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <br/>
+  <br/>
+
+  <mat-card >
+    <mat-card-subtitle>The most lucrative</mat-card-subtitle>
+    <mat-card-title>The amount you spent: {{sum}}$</mat-card-title>
+    <mat-card-content>buy:{{buyDate}}</mat-card-content>
+    <mat-card-content>sale:{{saleDate}}</mat-card-content>
+  </mat-card>
+<br/>
+<button mat-raised-button  (click)="reverceArr()">Click to calculate The most lucrative Without order date</button>
+
+</div>
